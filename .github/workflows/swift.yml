@@ -1,0 +1,25 @@
+name: Swift
+
+on: [push]
+
+jobs:
+  osx:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run tests
+      run: swift test
+  xenial:
+    container: 
+      image: swift:5.1-xenial
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: swift test --enable-test-discovery
+  bionic:
+    container: 
+      image: swift:5.1-bionic
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: swift test --enable-test-discovery
