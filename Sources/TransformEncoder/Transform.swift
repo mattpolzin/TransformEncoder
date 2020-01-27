@@ -87,4 +87,22 @@ internal struct TransformAttempt {
             return try (changed: true, result: t.transform(value, codingPath))
         }
     }
+
+    init<T: Encodable>(_ v: Validator<T>) {
+        self.runAgain = true
+        self.onlyRunOnce = false
+
+        self.transform = { input, codingPath in
+            guard let value = input as? T else {
+                return (changed: false, result: input)
+            }
+            guard v.predicate(value, codingPath) else {
+                return (changed: false, result: input)
+            }
+
+            try v.validate(value, codingPath)
+
+            return (changed: false, result: value)
+        }
+    }
 }

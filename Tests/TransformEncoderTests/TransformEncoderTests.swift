@@ -183,6 +183,32 @@ final class TransformEncoderTests: XCTestCase {
         )
     }
 
+    func test_validationFails() throws {
+        let array = [1, 2, 3]
+
+        let encoder = TransformEncoder()
+        encoder.validate { (x: Int, path) in
+            if x > 2 {
+                throw ValidationError(reason: "Found integer greater than 2!", at: path)
+            }
+        }
+
+        XCTAssertThrowsError(try encoder.encode(array))
+    }
+
+    func test_validationPasses() throws {
+        let array = [1, 2]
+
+        let encoder = TransformEncoder()
+        encoder.validate { (x: Int, path) in
+            if x > 2 {
+                throw ValidationError(reason: "Found integer greater than 2!", at: path)
+            }
+        }
+
+        XCTAssertNoThrow(try encoder.encode(array))
+    }
+
     #warning("TODO: write more tests")
 }
 

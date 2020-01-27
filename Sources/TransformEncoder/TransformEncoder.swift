@@ -45,6 +45,27 @@ public class TransformEncoder {
         self.transforms.append(TransformAttempt(transform))
     }
 
+    /// Add a validation to be performed when encoding.
+    ///
+    /// - Parameters:
+    ///     - validate: A function taking values of type `T` and validating
+    ///         them. This function should throw if a validation error occurs.
+    ///         `ValidationError` is a good general purpose error for this use-case.
+    ///     - predicate: A function returning `true` if this validator
+    ///         should run against the given value.
+    ///
+    public func validate<T: Encodable>(
+        if predicate: @escaping Validator<T>.Predicate = { _, _ in true },
+        validate: @escaping Validator<T>.Validator
+    ) {
+        self.validate(Validator(if: predicate, validate: validate))
+    }
+
+    /// Add a validation to be performed when encoding.
+    public func validate<T: Encodable>(_ validator: Validator<T>) {
+        self.transforms.append(TransformAttempt(validator))
+    }
+
     /// Encode a value of type `T` to Data.
     ///
     /// - parameter value:    Value to encode.
