@@ -194,6 +194,17 @@ final class TransformEncoderTests: XCTestCase {
         }
 
         XCTAssertThrowsError(try encoder.encode(array))
+
+        do {
+            _ = try encoder.encode(array) as TransformEncoderNode
+        } catch let error as EncodingError {
+            switch error {
+            case .invalidValue(_, let context):
+                XCTAssertEqual(String(describing: context.underlyingError!), "Found integer greater than 2! at path: [2]")
+            @unknown default:
+                fatalError()
+            }
+        }
     }
 
     func test_validationPasses() throws {

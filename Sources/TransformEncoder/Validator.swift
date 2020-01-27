@@ -35,12 +35,16 @@ public struct Validator<T: Encodable> {
     }
 }
 
-public struct ValidationError: Swift.Error {
-    public let description: String
+public struct ValidationError: Swift.Error, CustomStringConvertible {
+    public let reason: String
     public let codingPath: [CodingKey]
 
     public init(reason: String, at path: [CodingKey]) {
-        self.description = reason
+        self.reason = reason
         self.codingPath = path
+    }
+
+    public var description: String {
+        "\(reason) at path: \(codingPath.map { $0.intValue.map { "[\($0)]" } ?? "/\($0.stringValue)" }.joined())"
     }
 }
