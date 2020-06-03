@@ -20,15 +20,6 @@
         }
       },
       {
-        "package": "Poly",
-        "repositoryURL": "https://github.com/mattpolzin/Poly.git",
-        "state": {
-          "branch": null,
-          "revision": "0c9c08204142babc480938d704a23513d11420e5",
-          "version": "2.3.1"
-        }
-      },
-      {
         "package": "RichJSONParser",
         "repositoryURL": "https://github.com/omochi/RichJSONParser.git",
         "state": {
