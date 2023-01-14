@@ -6,7 +6,7 @@ jobs:
   osx:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Run tests
       run: swift test
   xenial_5-1:
@@ -14,26 +14,26 @@ jobs:
       image: swift:5.1-xenial
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - run: swift test --enable-test-discovery
   bionic_5-1:
     container: 
       image: swift:5.1-bionic
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - run: swift test --enable-test-discovery
   xenial_5-2:
     container: 
       image: swift:5.2-xenial
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - run: swift test --enable-test-discovery
   bionic_5-2:
     container: 
       image: swift:5.2-bionic
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - run: swift test --enable-test-discovery
